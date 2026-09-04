@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { WILAYAS, getWilaya } from "@/data/algeria";
 import { PRODUCT } from "@/data/product";
+import { GOOGLE_SHEETS_WEB_APP_URL } from "@/data/order-config";
 
 type Delivery = "desk" | "home";
 
@@ -18,6 +19,7 @@ export function OrderForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const selected = useMemo(() => (wilaya ? getWilaya(wilaya) : undefined), [wilaya]);
   const communes = selected?.communes ?? [];
@@ -39,14 +41,41 @@ export function OrderForm() {
     return Object.keys(e).length === 0;
   };
 
-  const submit = (ev: React.FormEvent) => {
+  const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
+
+    if (!GOOGLE_SHEETS_WEB_APP_URL) {
+      setSubmitError("خدمة استقبال الطلبات قيد الإعداد. يرجى المحاولة لاحقًا.");
+      return;
+    }
+
+    setSubmitError("");
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
+
+    try {
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.replace(/\s/g, ""),
+          wilaya: selected?.name ?? "",
+          commune,
+          delivery: delivery === "desk" ? "المكتب" : "المنزل",
+          productPrice: PRODUCT.price,
+          shippingPrice: shipping,
+          total,
+          product: PRODUCT.name,
+        }),
+      });
       setDone(true);
-    }, 700);
+    } catch {
+      setSubmitError("تعذّر إرسال الطلب. تحقق من اتصال الإنترنت وحاول مرة أخرى.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (done) {
@@ -185,6 +214,12 @@ export function OrderForm() {
               </span>
             </div>
           </div>
+        )}
+
+        {submitError && (
+          <p role="alert" className="rounded-2xl bg-destructive/10 p-3 text-center text-sm font-semibold text-destructive">
+            {submitError}
+          </p>
         )}
 
         <button type="submit" disabled={sending} className="btn-cta w-full">

@@ -17,9 +17,16 @@ export const Route = createFileRoute("/")({
           "حقيبة مدرسية عصرية وعملية للأطفال بلون كراميل، أحزمة مبطّنة وجيوب متعددة. 1500 دج، توصيل إلى كل الولايات والدفع عند الاستلام.",
       },
       { property: "og:title", content: "حقيبة مدرسية Rodess — 1500 دج" },
+      { property: "og:type", content: "website" },
       {
         property: "og:description",
         content: "حقيبة مدرسية عملية ومريحة لطفلك. اطلبها الآن، الدفع عند الاستلام والتوصيل لكل الولايات.",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "حقيبة مدرسية Rodess — 1500 دج" },
+      {
+        name: "twitter:description",
+        content: "حقيبة مدرسية عملية ومريحة لطفلك، مع الدفع عند الاستلام والتوصيل لكل الولايات.",
       },
     ],
   }),
