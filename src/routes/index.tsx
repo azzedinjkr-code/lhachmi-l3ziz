@@ -33,7 +33,7 @@ function Index() {
   return (
     <main dir="rtl" className="min-h-screen overflow-x-hidden bg-background pb-24">
       <header className="relative border-b border-border bg-card shadow-header">
-        <div className="mx-auto flex h-20 max-w-3xl items-center justify-between gap-3 px-4">
+        <div className="mx-auto flex h-20 max-w-3xl items-center justify-between gap-3 px-4" dir="ltr">
           <div className="flex min-w-0 items-center gap-2.5" dir="ltr">
             <img
               src={rodessLogo}
@@ -49,7 +49,7 @@ function Index() {
               </span>
             </div>
           </div>
-          <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-primary/20 bg-secondary px-3.5 py-2 text-xs font-extrabold text-secondary-foreground">
+          <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-primary/20 bg-secondary px-3.5 py-2 text-xs font-extrabold text-secondary-foreground" dir="rtl">
             <span className="h-2 w-2 rounded-full bg-cta" aria-hidden="true" />
             عرض الدخول المدرسي
           </span>
