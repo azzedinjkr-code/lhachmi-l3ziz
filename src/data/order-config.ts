@@ -1,0 +1,1 @@
+export const GOOGLE_SHEETS_WEB_APP_URL = "";
