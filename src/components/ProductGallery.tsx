@@ -6,6 +6,7 @@ export function ProductGallery() {
   const [active, setActive] = useState(0);
   const [zoom, setZoom] = useState(false);
   const images = PRODUCT.images;
+  const current = images[active] ?? images[0]!;
 
   useEffect(() => {
     if (!zoom) return;
@@ -23,8 +24,8 @@ export function ProductGallery() {
       <div className="relative overflow-hidden rounded-3xl bg-card shadow-soft ring-1 ring-border">
         <img
           key={active}
-          src={images[active].src}
-          alt={images[active].alt}
+          src={current.src}
+          alt={current.alt}
           className="animate-fade-in aspect-[3/4] w-full object-cover"
           loading="eager"
         />
@@ -71,8 +72,8 @@ export function ProductGallery() {
             <X className="h-5 w-5" />
           </button>
           <img
-            src={images[active].src}
-            alt={images[active].alt}
+            src={current.src}
+            alt={current.alt}
             className="max-h-[85vh] w-auto max-w-full rounded-2xl object-contain"
           />
         </div>
