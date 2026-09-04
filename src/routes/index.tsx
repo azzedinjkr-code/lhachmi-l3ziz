@@ -1,24 +1,116 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PRODUCT } from "@/data/product";
+import { ProductGallery } from "@/components/ProductGallery";
+import { Features } from "@/components/Features";
+import { TrustBar } from "@/components/TrustBar";
+import { OrderForm } from "@/components/OrderForm";
+import { Faq } from "@/components/Faq";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "حقيبة مدرسية Rodess — 1500 دج مع الدفع عند الاستلام" },
+      {
+        name: "description",
+        content:
+          "حقيبة مدرسية عصرية وعملية للأطفال بلون كراميل، أحزمة مبطّنة وجيوب متعددة. 1500 دج، توصيل إلى كل الولايات والدفع عند الاستلام.",
+      },
+      { property: "og:title", content: "حقيبة مدرسية Rodess — 1500 دج" },
+      {
+        property: "og:description",
+        content: "حقيبة مدرسية عملية ومريحة لطفلك. اطلبها الآن، الدفع عند الاستلام والتوصيل لكل الولايات.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const scrollToOrder = () =>
+    document.getElementById("order")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main dir="rtl" className="min-h-screen overflow-x-hidden bg-background pb-24">
+      <header className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
+        <span className="text-lg font-extrabold tracking-tight text-foreground">Rodess</span>
+        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">
+          عرض الدخول المدرسي
+        </span>
+      </header>
+
+      <section className="mx-auto w-full max-w-3xl px-4">
+        <ProductGallery />
+        <div className="animate-slide-up mt-6 text-center">
+          <h1 className="text-[26px] font-extrabold leading-snug text-foreground">{PRODUCT.tagline}</h1>
+          <p className="mt-1 text-sm font-bold text-primary">{PRODUCT.name}</p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+            {PRODUCT.short}
+          </p>
+          <div className="mt-5 flex items-baseline justify-center gap-2">
+            <span className="text-4xl font-extrabold text-foreground">
+              {PRODUCT.price.toLocaleString("en-US")}
+            </span>
+            <span className="text-lg font-bold text-primary">{PRODUCT.currency}</span>
+          </div>
+          <button type="button" onClick={scrollToOrder} className="btn-cta mt-5 w-full max-w-sm">
+            اطلب الآن
+          </button>
+        </div>
+      </section>
+
+      <div className="mt-8">
+        <TrustBar />
+      </div>
+
+      <Features />
+
+      <section className="mx-auto w-full max-w-3xl px-4 pb-4">
+        <div className="rounded-3xl bg-primary p-6 text-center shadow-soft">
+          <h2 className="text-xl font-extrabold text-primary-foreground">لماذا تختارها؟</h2>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-primary-foreground/85">
+            حقيبة واحدة تكفي لكل العام: جيوب مرتّبة تحمي الكتب، أحزمة مبطّنة ترتاح على كتفَي طفلك، ولون
+            كراميل أنيق لا يُظهر الاستعمال. بسعر 1500 دج والدفع عند الاستلام.
+          </p>
+          <button type="button" onClick={scrollToOrder} className="btn-outline mt-5">
+            اطلبها الآن
+          </button>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-3xl px-4 py-8">
+        <div className="grid grid-cols-3 gap-2">
+          {PRODUCT.images.slice(1).map((img) => (
+            <img
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              className="aspect-square w-full rounded-2xl object-cover ring-1 ring-border"
+            />
+          ))}
+        </div>
+      </section>
+
+      <OrderForm />
+      <Faq />
+
+      <footer className="mx-auto max-w-3xl px-4 pb-8 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} Rodess — الدفع عند الاستلام في كل الولايات
+      </footer>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-3 backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-md items-center gap-3">
+          <div className="shrink-0 text-right">
+            <p className="text-[11px] text-muted-foreground">السعر</p>
+            <p className="text-base font-extrabold text-foreground">
+              {PRODUCT.price.toLocaleString("en-US")} {PRODUCT.currency}
+            </p>
+          </div>
+          <button type="button" onClick={scrollToOrder} className="btn-cta flex-1">
+            اطلب الآن
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }
