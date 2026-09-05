@@ -92,29 +92,53 @@ export function OrderForm() {
 
   if (done) {
     return (
-      <section id="order" className="mx-auto w-full max-w-md px-4 py-14">
-        <div className="animate-fade-in rounded-3xl border border-border bg-card p-8 text-center shadow-soft">
-          <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
-          <h2 className="mt-4 text-xl font-extrabold text-foreground">تم تسجيل طلبك بنجاح ✅</h2>
-          <p className="mt-2 text-sm text-muted-foreground">سنتواصل معك هاتفيًا لتأكيد الطلب.</p>
-          <div className="mt-5 space-y-1 rounded-2xl bg-secondary p-4 text-sm text-secondary-foreground">
-            <p>
-              الاسم: <strong>{name}</strong>
+      <section id="order" ref={successRef} className="mx-auto w-full max-w-md scroll-mt-24 px-4 pb-6 pt-10">
+        <div className="animate-fade-in overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
+          <div className="bg-secondary px-5 pb-6 pt-7 text-center">
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-card shadow-soft">
+              <CheckCircle2 className="h-10 w-10 text-primary" strokeWidth={2.2} />
+            </span>
+            <h2 className="mt-4 text-xl font-extrabold leading-snug text-foreground sm:text-2xl">
+              تم تأكيد طلبك بنجاح 🎉
+            </h2>
+            <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
+              شكرًا لثقتك بنا. تم تسجيل طلبك بنجاح وسنتواصل معك قريبًا لتأكيد تفاصيل طلبك.
             </p>
-            <p>
-              الهاتف: <strong dir="ltr">{phone}</strong>
-            </p>
-            <p>
-              العنوان: <strong>{commune} — {selected?.name}</strong>
-            </p>
-            <p>
-              الإجمالي: <strong>{dz(total)} {PRODUCT.currency}</strong>
+          </div>
+
+          <div className="p-5">
+            <h3 className="text-sm font-extrabold text-foreground">تفاصيل الطلب</h3>
+            <dl className="mt-3 space-y-2">
+              <Detail icon={<User className="h-4 w-4" />} label="الاسم الكامل" value={name} />
+              <Detail icon={<Phone className="h-4 w-4" />} label="رقم الهاتف" value={phone} ltr />
+              <Detail icon={<MapPin className="h-4 w-4" />} label="الولاية" value={selected?.name ?? ""} />
+              <Detail icon={<MapPin className="h-4 w-4" />} label="البلدية" value={commune} />
+              <Detail icon={<ShoppingBag className="h-4 w-4" />} label="المنتج" value={PRODUCT.name} />
+              <Detail icon={<Package className="h-4 w-4" />} label="الكمية" value="1" />
+              <Detail
+                icon={<Package className="h-4 w-4" />}
+                label="طريقة التوصيل"
+                value={delivery === "desk" ? "إلى المكتب" : "إلى المنزل"}
+              />
+            </dl>
+
+            <div className="mt-3 flex items-center justify-between rounded-2xl bg-primary px-4 py-3 text-primary-foreground">
+              <span className="text-sm font-bold">السعر الإجمالي</span>
+              <span className="text-base font-extrabold">
+                {dz(total)} {PRODUCT.currency}
+              </span>
+            </div>
+
+            <p className="mt-4 rounded-2xl border border-border bg-background p-3 text-center text-xs font-semibold leading-relaxed text-muted-foreground">
+              الخطوة التالية: سيتصل بك أحد أعضاء فريقنا على رقمك لتأكيد الطلب، ثم نرسله إليك — والدفع
+              عند الاستلام.
             </p>
           </div>
         </div>
       </section>
     );
   }
+
 
   return (
     <section id="order" className="mx-auto w-full max-w-md px-4 py-12">
