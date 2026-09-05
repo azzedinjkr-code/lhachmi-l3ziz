@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CheckCircle2, Loader2, MapPin, Package, Phone, ShoppingBag, User } from "lucide-react";
 import { WILAYAS, getWilaya } from "@/data/algeria";
 import { PRODUCT } from "@/data/product";
 import { GOOGLE_SHEETS_WEB_APP_URL } from "@/data/order-config";
