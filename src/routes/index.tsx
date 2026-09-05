@@ -38,7 +38,7 @@ function Index() {
     document.getElementById("order")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <main dir="rtl" className="min-h-screen overflow-x-hidden bg-background pb-24">
+    <main dir="rtl" className="min-h-screen overflow-x-hidden bg-background">
       <header className="relative border-b border-border bg-card shadow-header">
         <div className="mx-auto flex h-20 max-w-3xl items-center justify-between gap-3 px-4" dir="ltr">
           <div className="flex min-w-0 items-center gap-2.5" dir="ltr">
@@ -71,11 +71,21 @@ function Index() {
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
             {PRODUCT.short}
           </p>
-          <div className="mt-5 flex items-baseline justify-center gap-2">
-            <span className="text-4xl font-extrabold text-foreground">
-              {PRODUCT.price.toLocaleString("en-US")}
-            </span>
-            <span className="text-lg font-bold text-primary">{PRODUCT.currency}</span>
+          <div className="mt-5 flex flex-col items-center justify-center gap-1">
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-4xl font-extrabold text-foreground">
+                {PRODUCT.price.toLocaleString("en-US")}
+              </span>
+              <span className="text-lg font-bold text-primary">{PRODUCT.currency}</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-muted-foreground line-through">
+                {PRODUCT.originalPrice.toLocaleString("en-US")} {PRODUCT.currency}
+              </span>
+              <span className="rounded-full bg-cta/10 px-2 py-0.5 font-extrabold text-cta">
+                وفّر {PRODUCT.originalPrice - PRODUCT.price} {PRODUCT.currency}
+              </span>
+            </div>
           </div>
           <button type="button" onClick={scrollToOrder} className="btn-cta mt-5 w-full max-w-sm">
             اطلب الآن
@@ -94,25 +104,12 @@ function Index() {
           <h2 className="text-xl font-extrabold text-primary-foreground">لماذا تختارها؟</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-primary-foreground/85">
             حقيبة واحدة تكفي لكل العام: جيوب مرتّبة تحمي الكتب، أحزمة مبطّنة ترتاح على كتفَي طفلك، ولون
-            كراميل أنيق لا يُظهر الاستعمال. بسعر 1500 دج والدفع عند الاستلام.
+            كراميل أنيق لا يُظهر الاستعمال. السعر الأصلي {PRODUCT.originalPrice.toLocaleString("en-US")} {PRODUCT.currency}،
+            الآن بـ {PRODUCT.price.toLocaleString("en-US")} {PRODUCT.currency} فقط مع الدفع عند الاستلام.
           </p>
           <button type="button" onClick={scrollToOrder} className="btn-outline mt-5">
             اطلبها الآن
           </button>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-3xl px-4 py-8">
-        <div className="grid grid-cols-3 gap-2">
-          {PRODUCT.images.slice(1).map((img) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              loading="lazy"
-              className="aspect-square w-full rounded-2xl object-cover ring-1 ring-border"
-            />
-          ))}
         </div>
       </section>
 
@@ -122,20 +119,6 @@ function Index() {
       <footer className="mx-auto max-w-3xl px-4 pb-8 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} Rodess — الدفع عند الاستلام في كل الولايات
       </footer>
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-3 backdrop-blur md:hidden">
-        <div className="mx-auto flex max-w-md items-center gap-3">
-          <div className="shrink-0 text-right">
-            <p className="text-[11px] text-muted-foreground">السعر</p>
-            <p className="text-base font-extrabold text-foreground">
-              {PRODUCT.price.toLocaleString("en-US")} {PRODUCT.currency}
-            </p>
-          </div>
-          <button type="button" onClick={scrollToOrder} className="btn-cta flex-1">
-            اطلب الآن
-          </button>
-        </div>
-      </div>
     </main>
   );
 }
