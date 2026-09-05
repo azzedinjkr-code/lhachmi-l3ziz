@@ -20,6 +20,18 @@ export function OrderForm() {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const successRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!done) return;
+    const id = window.setTimeout(() => {
+      const el = successRef.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 16;
+      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+    }, 60);
+    return () => window.clearTimeout(id);
+  }, [done]);
 
   const selected = useMemo(() => (wilaya ? getWilaya(wilaya) : undefined), [wilaya]);
   const communes = selected?.communes ?? [];
