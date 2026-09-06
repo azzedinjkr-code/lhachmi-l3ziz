@@ -284,6 +284,30 @@ function Field({
   );
 }
 
+function Detail({
+  icon,
+  label,
+  value,
+  ltr = false,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  ltr?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-2xl bg-background px-3 py-2.5">
+      <dt className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+        <span className="text-primary" aria-hidden="true">{icon}</span>
+        {label}
+      </dt>
+      <dd className="min-w-0 text-left text-sm font-bold text-foreground" dir={ltr ? "ltr" : undefined}>
+        {value}
+      </dd>
+    </div>
+  );
+}
+
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
