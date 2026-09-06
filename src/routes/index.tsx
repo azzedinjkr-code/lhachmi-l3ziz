@@ -5,7 +5,7 @@ import { Features } from "@/components/Features";
 import { TrustBar } from "@/components/TrustBar";
 import { OrderForm } from "@/components/OrderForm";
 import { Faq } from "@/components/Faq";
-import backzoneLogo from "@/assets/backzone-logo.png.asset.json";
+import backzoneLogo from "@/assets/backzone-logo-transparent.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,9 +45,9 @@ function Index() {
             <img
               src={backzoneLogo.url}
               alt="شعار متجر BackZone للحقائب المدرسية"
-              width={1254}
-              height={1254}
-              className="h-20 w-20 shrink-0 rounded-lg object-contain"
+              width={1027}
+              height={918}
+              className="h-[86px] w-24 shrink-0 object-contain"
             />
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-primary/20 bg-secondary px-3.5 py-2 text-xs font-extrabold text-secondary-foreground" dir="rtl">
