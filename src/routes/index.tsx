@@ -43,7 +43,7 @@ function Index() {
         <div className="mx-auto flex h-24 max-w-3xl items-center justify-between gap-3 px-4" dir="ltr">
           <div className="flex min-w-0 items-center" dir="ltr">
             <img
-              src={backzoneLogo.url}
+              src={backzoneLogo}
               alt="شعار متجر BackZone للحقائب المدرسية"
               width={1027}
               height={918}
